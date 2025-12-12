@@ -21,7 +21,7 @@ window.Bar {
     // margin: 8px;
   }
 
- .latus > button.latus:hover, button.latus:hover, .vol-scroller:hover, .systray-more-btn:hover, .btn.latus:hover {
+ .latus > button.latus:hover,.date-time:hover, button.latus:hover, .vol-scroller:hover, .systray-more-btn:hover, .btn.latus:hover {
     color: $accent2-color;
   }
 
@@ -38,9 +38,6 @@ window.Bar {
     // margin: 2px;
   }
 
-  .date-time:hover {
-    color: $accent-color;
-  }
 
 .systrayBtn {
   padding: 0 6px;
