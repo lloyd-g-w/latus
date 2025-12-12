@@ -1,0 +1,65 @@
+// https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
+$fg-color: #a7aab0;
+$bg-color: #2c2d30;
+$bg2-color: #232326;
+$border-color: #5a5b5e;
+$accent-color: #bb70d2;
+$accent2-color: #57a5e5;
+$urgent-color: #de5d68;
+
+window.Bar {
+  background: transparent;
+  font-family: "Jetbrains Mono Nerd Font";
+  color: $fg-color;
+  font-weight: bold;
+  font-size: 18px;
+
+  > centerbox {
+    padding: 8px;
+    background: $bg-color;
+    // border-radius: 10px;
+    // margin: 8px;
+  }
+
+ .latus > button.latus:hover, button.latus:hover, .vol-scroller:hover, .systray-more-btn:hover, .btn.latus:hover {
+    color: $accent2-color;
+  }
+
+  button.latus.active {
+    color: $accent-color;
+  }
+
+ .latus > button, button.latus {
+    background: none;
+
+    margin: 0;
+    padding: 0;
+    // border-radius: 8px;
+    // margin: 2px;
+  }
+
+  .date-time:hover {
+    color: $accent-color;
+  }
+
+.systrayBtn {
+  padding: 0 6px;
+  min-height: 22px;
+  border-radius: 6px;
+  background: transparent;
+}
+
+.systrayBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.systrayBtn:active {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.systrayItem {
+  -gtk-icon-size: 16px;
+}
+
+
+}
