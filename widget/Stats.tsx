@@ -23,7 +23,7 @@ const openBtop = (self: any) => {
 }
 
 export default function Stats() {
-    const volume = createPoll("", 100, "./scripts/getvol.sh")
+    const volume = createPoll("", 100, `${SRC}/scripts/getvol.sh`)
 
     // Poll CPU usage (updates every 2s)
     // Calculates: 100% - Idle%

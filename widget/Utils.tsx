@@ -1,3 +1,7 @@
+import GLib from "gi://GLib"
+
+export const SRC = GLib.getenv("LATUS_SRC")!
+
 export function Brackets(props: { children?: any }) {
     return (
         <box class="latus">

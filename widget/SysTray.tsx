@@ -4,7 +4,7 @@ import { Gtk } from "ags/gtk4"
 import { For, With, createBinding, createState } from "ags"
 import { createPoll } from "ags/time"
 import { execAsync } from "ags/process"
-import { Space } from "./Utils"
+import { Space, SRC } from "./Utils"
 
 const [moreVisible, setMoreVisible] = createState(false);
 
@@ -48,7 +48,6 @@ function SysTrayItem({ item }: { item: any }) {
 }
 
 export default function SysTray() {
-    const volume = createPoll("", 100, "./scripts/getvol.sh")
     const tray = Tray.get_default()
     const items = createBinding(tray, "items")
 

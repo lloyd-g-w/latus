@@ -1,6 +1,7 @@
 import { Gtk } from "ags/gtk4"
 import { execAsync, createSubprocess } from "ags/process"
 import { For, type Accessor } from "ags"
+import { SRC } from "./Utils"
 
 type Workspace = {
     idx: number
@@ -11,7 +12,7 @@ type Workspace = {
 
 const niriWorkspaces: Accessor<Workspace[]> = createSubprocess<Workspace[]>(
     [],                     // initial value
-    ["bash", "-c", "scripts/workspaces.sh"],  // same script as in eww
+    ["bash", "-c", `${SRC}/scripts/workspaces.sh`],  // same script as in eww
     (stdout) => {
         try {
             const data = JSON.parse(stdout.trim())
