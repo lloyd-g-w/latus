@@ -7,6 +7,9 @@ import { AudioVisualiser } from "./AudioVisualiser"
 import Workspaces from "./Workspaces"
 import { Brackets, Space } from "./Utils"
 import Stats from "./Stats"
+import { execAsync } from "ags/process"
+
+execAsync(["ls", "-l", `${SRC}/scripts`]).then(print)
 
 function Left(props: { gdkmonitor: Gdk.Monitor }) {
   const time = createPoll("", 1000, "date '+%a %d %b %-I:%M:%S %p'")

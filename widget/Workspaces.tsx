@@ -1,7 +1,6 @@
 import { Gtk } from "ags/gtk4"
 import { execAsync, createSubprocess } from "ags/process"
 import { For, type Accessor } from "ags"
-import { SRC } from "./Utils"
 
 type Workspace = {
     idx: number

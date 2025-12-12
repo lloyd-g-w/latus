@@ -4,7 +4,7 @@ import { Gtk } from "ags/gtk4"
 import { For, With, createBinding, createState } from "ags"
 import { createPoll } from "ags/time"
 import { execAsync } from "ags/process"
-import { Space, SRC } from "./Utils"
+import { Space } from "./Utils"
 
 const [moreVisible, setMoreVisible] = createState(false);
 
