@@ -17,7 +17,7 @@
   }: let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
-    pname = "my-shell";
+    pname = "latus";
     entry = "app.ts";
 
     astalPackages = with ags.packages.${system}; [
