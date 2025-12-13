@@ -77,7 +77,7 @@ export default function Stats() {
                             return (
                                 <label
                                     class="latus vol-scroller"
-                                    label={`${current}%`}
+                                    label={`${current === -1 ? "MUT" : current + "%"}`}
                                     $={(self) => {
                                         // 1. Scroll Controller
                                         const scroll = new Gtk.EventControllerScroll({
