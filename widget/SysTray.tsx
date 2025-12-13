@@ -5,6 +5,7 @@ import { For, With, createBinding, createState } from "ags"
 import { createPoll } from "ags/time"
 import { execAsync } from "ags/process"
 import { Space } from "./Utils"
+import PowermenuPopover from "./PowerMenu"
 
 const [moreVisible, setMoreVisible] = createState(false);
 
@@ -81,9 +82,7 @@ export default function SysTray() {
                     () => execAsync("swaync-client --toggle-panel").catch(e => { print(e) })
                 } label="󰂚" />
 
-                <button class="latus" onClicked={
-                    () => execAsync("wlogout").catch(e => { print(e) })
-                } label="" />
+                <PowermenuPopover />
 
             </box >
 
