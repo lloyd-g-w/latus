@@ -1,5 +1,5 @@
 import { Gtk } from "ags/gtk4"
-import { For, With, createBinding, createState } from "ags"
+import { For, With, createBinding, createComputed, createState } from "ags"
 import { createPoll } from "ags/time"
 import { execAsync } from "ags/process"
 import { Space } from "./Utils"
@@ -31,6 +31,15 @@ export default function Stats() {
 
     // Poll RAM usage (updates every 2s)
     const ram = createPoll("", 2000, "bash -c \"free | awk '/^Mem/ {printf \\\"%.0f\\\\n\\\", $3/$2 * 100}'\"")
+
+    // Poll battery usage (updates every 5s)
+    const batteryPercentage = createPoll("", 5000, "bash -c \"acpi -bi | awk '{print substr($4, 1, length($4)-2)}'\"");
+    const batteryTimeRemaining = createPoll("", 5000, "bash -c \"acpi -b | awk '{print $5}'\"");
+
+    const battery = createComputed(() => ({
+        bat: batteryPercentage(),
+        timeRem: batteryTimeRemaining()
+    }));
 
     return (
         <box class="stats latus">
@@ -101,9 +110,40 @@ export default function Stats() {
                             );
                         }}
                     </With>
+
+
                 </box>
 
-            </box>
-        </box>
+                <label label="|" />
+
+                {/* --- BATTERY --- */}
+                <box spacing={8}>
+                    <label label="BAT:" />
+                    <With value={battery}>
+                        {(battery) => {
+                            let current = parseInt(battery.bat);
+                            return (
+                                <menubutton class="latus">
+                                    <box>
+                                        <label
+                                            class="latus btn"
+                                            label={`${current + "%"}`}
+                                        />
+                                    </box>
+                                    <popover class="latus">
+                                        <label
+                                            class="latus"
+                                            label={`${battery.timeRem + " remaining"}`}
+                                        />
+                                    </popover>
+                                </menubutton>
+                            );
+                        }}
+                    </With>
+                </box>
+
+
+            </box >
+        </box >
     )
 }
