@@ -1,8 +1,10 @@
 import { Gtk } from "ags/gtk4"
 import { For, With, createBinding, createComputed, createState } from "ags"
 import { createPoll } from "ags/time"
-import { execAsync } from "ags/process"
+import { execAsync, exec } from "ags/process"
 import { Space } from "./Utils"
+
+const systemHasBattery = exec('sh -c "ls /sys/class/power_supply/ | grep -q BAT && echo true || echo false"') === "true";
 
 const setVolume = (v: number) => {
     const clamped = Math.max(0, Math.min(100, v));
@@ -114,34 +116,37 @@ export default function Stats() {
 
                 </box>
 
-                <label label="|" />
 
-                {/* --- BATTERY --- */}
-                <box spacing={8}>
-                    <label label="BAT:" />
-                    <With value={battery}>
-                        {(battery) => {
-                            let current = parseInt(battery.bat);
-                            return (
-                                <menubutton class="latus">
-                                    <box>
-                                        <label
-                                            class="latus btn"
-                                            label={`${current + "%"}`}
-                                        />
-                                    </box>
-                                    <popover class="latus">
-                                        <label
-                                            class="latus"
-                                            label={`${battery.timeRem + " remaining"}`}
-                                        />
-                                    </popover>
-                                </menubutton>
-                            );
-                        }}
-                    </With>
-                </box>
-
+                {/* --- CONDITIONAL BATTERY SECTION --- */}
+                {systemHasBattery && (
+                    <>
+                        <label label="|" />
+                        <box spacing={8}>
+                            <label label="BAT:" />
+                            <With value={battery}>
+                                {(battery) => {
+                                    let current = parseInt(battery.bat);
+                                    return (
+                                        <menubutton class="latus">
+                                            <box>
+                                                <label
+                                                    class="latus btn"
+                                                    label={`${current + "%"}`}
+                                                />
+                                            </box>
+                                            <popover class="latus">
+                                                <label
+                                                    class="latus"
+                                                    label={`${battery.timeRem + " remaining"}`}
+                                                />
+                                            </popover>
+                                        </menubutton>
+                                    );
+                                }}
+                            </With>
+                        </box>
+                    </>
+                )}
 
             </box >
         </box >
