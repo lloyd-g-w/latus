@@ -17,8 +17,9 @@ window.Bar {
   > centerbox {
     padding: 8px;
     background: $bg-color;
-    // border-radius: 10px;
+    // border-radius: 12px;
     // margin: 8px;
+    // margin-bottom: 0;
   }
 
  .latus > button.latus:hover,.date-time:hover, button.latus:hover, .vol-scroller:hover, .systray-more-btn:hover, .btn.latus:hover {
@@ -58,5 +59,9 @@ window.Bar {
   -gtk-icon-size: 16px;
 }
 
+  .app-btn image {
+  -gtk-icon-style: symbolic;      /* prefer symbolic variant if available */
+  color: rgba(255, 255, 255, 0.80);
+}
 
 }

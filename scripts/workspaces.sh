@@ -12,8 +12,8 @@ print_workspaces
 # We pipe to a loop to ensure we control exactly when printing happens
 niri msg --json event-stream | jq --unbuffered -c '
   select(
-    .WorkspacesChanged or 
-    .WorkspaceActivated or 
+    .WorkspacesChanged or
+    .WorkspaceActivated or
     .WindowFocusChanged
   )
 ' | while read -r _; do

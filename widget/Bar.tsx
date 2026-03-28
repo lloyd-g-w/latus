@@ -8,13 +8,14 @@ import Workspaces from "./Workspaces"
 import { Brackets, Space } from "./Utils"
 import Stats from "./Stats"
 import { execAsync } from "ags/process"
+import Apps from "./Apps"
 
 execAsync(["ls", "-l", `${SRC}/scripts`]).then(print)
 
 function Left(props: { gdkmonitor: Gdk.Monitor }) {
+  const { gdkmonitor } = props;
   const time = createPoll("", 1000, "date '+%a %d %b %-I:%M:%S %p'")
   return <box $type="start" halign={Gtk.Align.START} >
-
     <menubutton class="latus">
       <box>
         <Brackets>
@@ -29,6 +30,11 @@ function Left(props: { gdkmonitor: Gdk.Monitor }) {
     <Space />
     <Brackets>
       <AudioVisualiser />
+    </Brackets>
+
+    <Space />
+    <Brackets>
+      <Apps output={gdkmonitor.connector} />
     </Brackets>
 
   </box>
