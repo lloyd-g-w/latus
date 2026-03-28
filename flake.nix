@@ -39,6 +39,7 @@
       ++ [
         pkgs.libadwaita
         pkgs.libsoup_3
+        pkgs.acpi
       ];
   in {
     packages.${system} = {
@@ -70,6 +71,7 @@
     devShells.${system} = {
       default = pkgs.mkShell {
         buildInputs = [
+          pkgs.acpi
           (ags.packages.${system}.default.override {
             inherit extraPackages;
           })
