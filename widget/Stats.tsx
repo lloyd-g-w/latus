@@ -37,10 +37,16 @@ export default function Stats() {
     // Poll battery usage (updates every 5s)
     const batteryPercentage = createPoll("", 5000, "bash -c \"acpi -bi | awk '{print substr($4, 1, length($4)-2)}'\"");
     const batteryTimeRemaining = createPoll("", 5000, "bash -c \"acpi -b | awk '{print $5}'\"");
+    const batteryIsCharging = createPoll(
+        "",
+        5000,
+        `bash -c "acpi -b | grep -q Charging && echo true || echo false"`
+    );
 
     const battery = createComputed(() => ({
         bat: batteryPercentage(),
-        timeRem: batteryTimeRemaining()
+        timeRem: batteryTimeRemaining(),
+        isCharging: batteryIsCharging()
     }));
 
     return (
@@ -123,27 +129,36 @@ export default function Stats() {
                         <label label="|" />
                         <box spacing={8}>
                             <label label="BAT:" />
+
                             <With value={battery}>
                                 {(battery) => {
                                     let current = parseInt(battery.bat);
+                                    let charging = battery.isCharging === "true";
+
                                     return (
                                         <menubutton class="latus">
                                             <box>
                                                 <label
                                                     class="latus btn"
-                                                    label={`${current + "%"}`}
+                                                    label={`${charging ? "󰂄 " : ""}${current}%`}
                                                 />
                                             </box>
                                             <popover class="latus">
                                                 <label
                                                     class="latus"
-                                                    label={`${battery.timeRem + " remaining"}`}
+                                                    label={
+                                                        charging
+                                                            ? `${battery.timeRem} until full`
+                                                            : `${battery.timeRem} remaining`
+                                                    }
                                                 />
                                             </popover>
                                         </menubutton>
                                     );
                                 }}
                             </With>
+
+
                         </box>
                     </>
                 )}
