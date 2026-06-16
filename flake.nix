@@ -37,6 +37,7 @@
     extraPackages =
       astalPackages
       ++ [
+        pkgs.jq
         pkgs.libadwaita
         pkgs.libsoup_3
         pkgs.acpi
