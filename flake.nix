@@ -42,6 +42,17 @@
         pkgs.libsoup_3
         pkgs.acpi
       ];
+
+    runtimePath = pkgs.lib.makeBinPath [
+      pkgs.acpi
+      pkgs.bash
+      pkgs.coreutils
+      pkgs.gawk
+      pkgs.gnugrep
+      pkgs.gnused
+      pkgs.jq
+      pkgs.procps
+    ];
   in {
     packages.${system} = {
       default = pkgs.stdenv.mkDerivation {
@@ -51,10 +62,17 @@
         nativeBuildInputs = with pkgs; [
           wrapGAppsHook3
           gobject-introspection
+          makeWrapper
           ags.packages.${system}.default
         ];
 
         buildInputs = extraPackages ++ [pkgs.gjs];
+
+        preFixup = ''
+          gappsWrapperArgs+=(
+            --prefix PATH : ${runtimePath}
+          )
+        '';
 
         installPhase = ''
           runHook preInstall
@@ -73,6 +91,7 @@
       default = pkgs.mkShell {
         buildInputs = [
           pkgs.acpi
+          pkgs.jq
           (ags.packages.${system}.default.override {
             inherit extraPackages;
           })
