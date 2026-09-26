@@ -1,5 +1,6 @@
 import { Gtk } from "ags/gtk4"
 import { execAsync } from "ags/process"
+import { quitCommand } from "./Globals"
 
 type Action = {
     label: string
@@ -10,7 +11,7 @@ type Action = {
 const actions: Action[] = [
     { label: "Lock", icon: "system-lock-screen-symbolic", cmd: ["loginctl", "lock-session"] },
     { label: "Suspend", icon: "media-playback-pause-symbolic", cmd: ["systemctl", "suspend"] },
-    { label: "Log out", icon: "system-log-out-symbolic", cmd: ["niri", "msg", "action", "quit"] },
+    { label: "Log out", icon: "system-log-out-symbolic", cmd: quitCommand },
     { label: "Reboot", icon: "system-reboot-symbolic", cmd: ["systemctl", "reboot"] },
     { label: "Shutdown", icon: "system-shutdown-symbolic", cmd: ["systemctl", "poweroff"] },
 ]

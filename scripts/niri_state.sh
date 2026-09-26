@@ -10,8 +10,12 @@ print_state() {
   win="$(niri msg -j windows 2>/dev/null | jq -c '.')"
   if [[ -z "${win}" ]]; then win="[]"; fi
 
-  jq -cn --argjson workspaces "$ws" --argjson windows "$win" \
-    '{workspaces: $workspaces, windows: $windows}'
+  # attach the owning output to each window so widgets can filter by monitor
+  jq -cn --argjson workspaces "$ws" --argjson windows "$win" '
+    ($workspaces | map({ key: (.id | tostring), value: .output }) | from_entries) as $wsOut
+    | { workspaces: $workspaces,
+        windows: ($windows | map(. + { output: ($wsOut[(.workspace_id // -1) | tostring] // null) })) }
+  '
 }
 
 # initial
